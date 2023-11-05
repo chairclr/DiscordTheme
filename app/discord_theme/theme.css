@@ -9,3 +9,8 @@
 .attachWrapper__6354f {
     display: none;
 }
+
+/* Remove avatar decorations from profiles */
+.avatarDecoration_ae35e3 {
+    display: none;
+}
