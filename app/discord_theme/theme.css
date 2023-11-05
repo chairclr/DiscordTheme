@@ -1,0 +1,11 @@
+/* Remove the gift nitro and sticker buttons on the message bar */
+.buttons_ce5b56 > *:nth-child(1),
+.buttons_ce5b56 > *:nth-child(3) {
+    display: none;
+}
+
+/* Remove upload button on the message bar */
+.uploadInput_a6be39,
+.attachWrapper__6354f {
+    display: none;
+}
