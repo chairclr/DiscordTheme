@@ -21,5 +21,8 @@ ipcRenderer.invoke("isMainProcessAlive").then(async () => {
         }
     };
 
+    theme.enable();
+    theme.reload();
+
     contextBridge.exposeInMainWorld("theme", theme);
 });

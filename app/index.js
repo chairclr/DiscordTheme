@@ -25,9 +25,9 @@ const discordConf = path.join(os.homedir(), ".config", "discord");
 const modulesPath = path.join(discordConf,
     fs
     .readdirSync(discordConf)
-    .find((folder) => fs
+    .find((folder) => fs.lstatSync(path.join(discordConf, folder)).isDirectory() && fs
         .readdirSync(path.join(discordConf, folder))
-        .find((folder) => folder == "modules")), "modules");
+        .find((folder2) => folder2 == "modules")), "modules");
 
 console.log("Found modules path: " + modulesPath);
 
