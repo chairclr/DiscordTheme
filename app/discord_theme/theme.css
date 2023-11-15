@@ -1,3 +1,39 @@
+/* Theme */
+.theme-dark {
+    --gtk-background: #23252e;
+    --gtk-background-secondary: #1d2027;
+
+    --background-primary: var(--gtk-background);
+    --background-primary-alt: var(--gtk-background);
+    --background-secondary: var(--gtk-background);
+    --background-secondary-chat: var(--gtk-background-secondary);
+    --background-secondary-alt: var(--gtk-background);
+    --background-tertiary: var(--gtk-background);
+    --background-quaternay: var(--gtk-background-secondary);
+    --background-logo: var(--gtk-background-secondary);
+    --deprecated-card-bg: var(--gtk-background);
+    --deprecated-store-bg: var(--gtk-background);
+    --background-attachments: var(--gtk-background-secondary);
+    --background-search-bar: var(--gtk-background-secondary);
+    --background-switcher: var(--gtk-background-secondary);
+    --background-chatbox: var(--gtk-background-secondary);
+    --background-lights-out: var(--gtk-background-secondary);
+    --background-titlebar: var(--gtk-background);
+    --interactive-muted: var(--gtk-background);
+    --background-mobile-primary: var(--background-secondary);
+    --channeltextarea-background: var(--gtk-background-secondary);
+    --background-modifier-accent: var(--gtk-background-secondary);
+    --background-modifier-selected: var(--background-tertiary);
+    --scrollbar-thin-thumb: var(--background-tertiary);
+    --scrollbar-thin-track: var(--background-primary);
+    --scrollbar-auto-thumb: var(--background-tertiary);
+    --scrollbar-auto-track: var(--background-primary);
+    --modal-background: var(--gtk-background-secondary);
+    --input-background: var(--gtk-background-secondary);
+    --background-floating: var(--gtk-background-secondary);
+    --background-accent: var(--gtk-background-secondary);
+}
+
 /* Remove the gift nitro and sticker buttons on the message bar */
 .buttons_ce5b56 > *:nth-child(1),
 .buttons_ce5b56 > *:nth-child(3) {
@@ -14,3 +50,4 @@
 .avatarDecoration_ae35e3 {
     display: none;
 }
+
