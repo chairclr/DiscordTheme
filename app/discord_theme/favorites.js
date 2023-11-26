@@ -92,6 +92,8 @@
         return null;
     }
 
+    let fluxstore = undefined;
+
     function contextMenuOpen(payload) {
         if (payload.contextMenu.target.nodeName != "A" && payload.contextMenu.target.nodeName != "VIDEO" && payload.contextMenu.target.nodeName != "IMG" && payload.contextMenu.target.nodeName != "DIV")
             return;
@@ -123,6 +125,11 @@
         var inserted = false;
 
         var tryInsert = () => {
+
+            if (inserted) {
+                return;
+            }
+
             elem = document.querySelector("[class^=menu]");        
             
             if (!elem && !inserted) {
@@ -155,8 +162,10 @@
 
             addFavoriteButton.addEventListener("click", () => {
                 addTargetAsFavorite(target, avatar);
-                // elem.remove(); // just removing the element from the dom can't be a good idea, but I don't know what else to do...
-                document.getElementsByTagName("body")[0].click();
+                fluxstore._dispatcher.dispatch({
+                    type: "CONTEXT_MENU_CLOSE",
+                    contextMenu: payload.contextMenu
+                });
             });
 
             addFavoriteButton.addEventListener("mouseenter", () => {
@@ -182,6 +191,7 @@
 
 
     exfil("_dispatcher", (flux) => {
+        fluxstore = flux;
         flux._dispatcher.subscribe("CONTEXT_MENU_OPEN", contextMenuOpen);
     });
 
