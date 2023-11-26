@@ -15,6 +15,10 @@ function copyDir(src, dest) {
         let srcPath = path.join(src, entry.name);
         let destPath = path.join(dest, entry.name);
 
+        if (entry.name.toString().startsWith(".")) {
+            continue;
+        }
+
         entry.isDirectory()
             ? copyDir(srcPath, destPath)
             : fs.copyFileSync(srcPath, destPath);
@@ -36,6 +40,7 @@ const themePath = path.join(modulesPath, "discord_theme");
 if (fs.existsSync(themePath)) {
     fs.rmdirSync(themePath, { recursive: true });
 }
+
 copyDir(path.join(basePath, "app", "discord_theme"), themePath);
 
 let originalAppPath = path.join(basePath, "original.asar");
@@ -75,10 +80,17 @@ for (const propertyName of propertyNames) {
 
                             mainWindow = window;
 
+                            // NOTE: loaded in order
+                            const files = [ "websmack.js", "favorites.js" ];
+
                             window.webContents.on("dom-ready", () => {
                                 window.webContents.executeJavaScript(
                                     `DiscordNative.nativeModules.requireModule("discord_theme");`
                                 );
+
+                                for (const filecontents of files) {
+                                    window.webContents.executeJavaScript(fs.readFileSync(path.join(themePath, filecontents)));
+                                }
                             });
                         }
 
