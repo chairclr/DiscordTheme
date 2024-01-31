@@ -34,7 +34,7 @@
     console.log("[Favorites] Loading websmack");
 
     const api = websmack.autoApi();
-    const favoriteGifs = api.findByCode("d\\.FrecencyUserSettingsActionCreators\\.updateAsync\\(\"favoriteGifs\"");
+    const favoriteGifs = api.findByCode(".updateAsync\\(\"favoriteGifs\"");
 
 
     function addTargetAsFavorite(target, avatar) {
