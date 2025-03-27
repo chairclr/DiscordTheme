@@ -1,11 +1,10 @@
 /* Theme */
 .theme-dark {
-    --gtk-background: #23252e;
-    --gtk-background-secondary: #1d2027;
+    --gtk-background: #1e1e2e;
+    --gtk-background-secondary: #242335;
+    --scroll-thumb: #60606a40;
 
-    --background-primary: var(--gtk-background);
-    --background-primary-alt: var(--gtk-background);
-    --background-secondary: var(--gtk-background);
+    --background-secondary: var(--gtk-background) !important;
     --background-secondary-chat: var(--gtk-background-secondary);
     --background-secondary-alt: var(--gtk-background);
     --background-tertiary: var(--gtk-background);
@@ -32,22 +31,175 @@
     --input-background: var(--gtk-background-secondary);
     --background-floating: var(--gtk-background-secondary);
     --background-accent: var(--gtk-background-secondary);
+    
+    --background-primary: var(--gtk-background) !important;
+    --bg-overlay-chat: var(--gtk-background) !important;
+    --bg-surface-overlay: var(--gtk-background) !important;
+    --bg-overlay-selected: var(--gtk-background) !important;
+
+    --bg-overlay-floating: var(--gtk-background-secondary) !important;
+
+    --background-surface-highest: var(--gtk-background) !important;
+    --background-surface-higher: var(--gtk-background) !important;
+    --background-surface-high: var(--gtk-background) !important;
+    --background-base-low: var(--gtk-background) !important;
+    --background-base-lower: var(--gtk-background) !important;
+    --background-base-lowest: var(--gtk-background) !important;
 }
 
-/* Remove the gift nitro and sticker buttons on the message bar */
-.buttons_ce5b56 > *:nth-child(1),
-.buttons_ce5b56 > *:nth-child(3) {
-    display: none;
+.visual-refresh {
+    /* Remove the top bar */
+    --custom-app-top-bar-height: 0px !important;
+
+    /* Force the textbox to be 49px tall (5 is added by discord) */
+    --custom-channel-textarea-text-area-height: 44px !important;
+
+    --chat-input-icon-size: 20px !important;
 }
 
-/* Remove upload button on the message bar */
-.uploadInput_a6be39,
-.attachWrapper__6354f {
+/* Make the scrollbar a less annoying color */
+::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-thumb) !important;
+}
+
+/* Make the scrollbar thinner */
+::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+/* Remove the top bar */
+[class^="bar_"] {
+    display: none !important;
+}
+
+/* Remove the gift nitro, sticker, and app buttons on the message bar */
+[aria-label="Send a gift"], 
+[aria-label="Open sticker picker"],
+[aria-label="Apps"] {
     display: none;
 }
 
 /* Remove avatar decorations from profiles */
-.avatarDecoration_ae35e3 {
+[class^="avatarDecoration_"] {
     display: none;
 }
 
+/* Remove the Nitro and Shop icons */
+[class^="content__"] > *:nth-child(3),
+[class^="content__"] > *:nth-child(4) {
+    display: none;
+}
+
+/* Remove guilds bar (can't seem to select this one with the class^= prefix selector.. weird) */
+.guilds_c48ade {
+    display: none;
+}
+
+/* Uppercase and bold the direct messages text (also can't select this one with prefix selector)*/
+.privateChannelsHeaderContainer__99e7c {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 620;
+    text-transform: uppercase;
+    letter-spacing: .01em;
+}
+
+/* Reduce the spacing of the buttons in the text bar */
+.buttons__74017 {
+    column-gap: 2px !important;
+}
+
+/* Remove the channel app launcher button */
+[class^="channelAppLauncher_"] {
+    display: none;
+}
+
+/* Remove the border around the text box */
+[class^="channelBottomBarArea_"] > *:nth-child(1) {
+    border: none;
+}
+
+/* Hide the seperator between buttons and dms, and shrink the distance a little */
+[class^="content__"] > *:nth-child(5) {
+    background-color: transparent;
+    margin-top: 0px;
+}
+
+/* Increase the space between the last message and the textbox */ 
+[class^="scrollerSpacer__"] {
+    height: 27px !important;
+}
+
+/* Change the spacing around the upload button */
+[aria-label="More message options"] {
+    padding-top: 2px !important;
+    padding-bottom: 4px !important;
+    padding-left: 14px !important;
+    padding-right: 4px !important;
+}
+
+/* Increase the size of the gif picker button */
+[aria-label="Open GIF picker"] > *:nth-child(1) > *:nth-child(1) > *:nth-child(1) {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* Increase the size of the emoji picker button */
+[aria-label="Select emoji"] > *:nth-child(1) > *:nth-child(1) {
+    --custom-emoji-sprite-size: 22px !important;
+}
+
+/* Increas the scale of the upload button */
+[class^="attachButtonInner__"] > *:nth-child(1) {
+    width: 22px;
+    height: 22px;
+}
+
+/* Change the clor of the call container */
+[class^="root_"] {
+    background: var(--gtk-background-secondary) !important;
+}
+
+/* Re-add the old border between the call container and the messages */
+[class^="callContainer_"] {
+    border-top: none !important;
+  box-shadow: 
+    0 1px 0 rgba(0, 0, 0, 0.3), /* Darker line */
+    0 2px 0 rgba(0, 0, 0, 0.1); /* Lighter line */
+}
+
+/* Remove the border on the members list */
+[class^="container_"] {
+    border-left: none !important;
+}
+
+/* Change the color of the user area and remove its border */
+[aria-label="User area"] {
+    background: var(--gtk-background) !important;
+    border: none !important;
+}
+
+/* Remove extra border in place of my own border above the user area */
+[aria-label="User area"] > *:nth-child(1) > *:nth-child(1) {
+    border: none !important;
+}
+
+/* Previously mentional own border above the user area */
+[aria-label="User area"] > *:nth-child(2) {
+    border-top: 1px solid var(--border-faint) !important;
+}
+
+/* Tweak size of user avatar in the corner */
+[aria-label="User area"] > *:nth-child(2) > *:nth-child(1) > *:nth-child(1) {
+    width: 35px !important;
+    height: 35px !important;
+}
+[aria-label="User area"] > *:nth-child(2) > *:nth-child(1) > *:nth-child(1) > *:nth-child(1) {
+    width: 42px !important;
+    height: 42px !important;
+}
+
+/* Reduce the border radius on most buttons */
+:where(.visual-refresh) [class*="button__"] {
+    border-radius: 6px !important;
+}
