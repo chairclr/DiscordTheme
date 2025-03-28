@@ -1,44 +1,16 @@
+var guh = new Object();
+
 (() => {
-
-    function exfil(prop, callback) {
-        const protoKey = Symbol(prop);
-        let hitProto = false;
-
-        Object.defineProperty(Object.prototype, prop, {
-            configurable: true,
-            enumerable: false,
-            set(v) {
-                if (this === Object.prototype) {
-                    hitProto = true;
-                    Object.prototype[protoKey] = v;
-                    return;
-                }
-
-                Object.defineProperty(this, prop, {
-                    configurable: true,
-                    writable: true,
-                    enumerable: true,
-                    value: v,
-                });
-
-                callback(this);
-                if (!hitProto) delete Object.prototype[prop];
-            },
-
-            get() {
-                return this[protoKey];
-            },
-        });
-    }
-
     console.log("[Favorites] Loading websmack");
 
     const api = websmack.autoApi();
-    const favoriteGifs = api.findByCode(".updateAsync\\(\"favoriteGifs\"");
+    const favoriteGifs = api.findByCode("updateAsync\\(\"favoriteGifs\"");
 
+    guh.fg = favoriteGifs;
+    guh.api = api;
 
     function addTargetAsFavorite(target, avatar) {
-        favoriteGifs.addFavoriteGIF({
+        favoriteGifs.uL({
             url: target.href ?? (avatar ? target.src.replace("size=32", "size=4096") : target.src),
             src: target.dataset.safeSrc ?? target.poster ?? (avatar ? target.src.replace("size=32", "size=4096") : target.src),
             width: target.clientWidth ?? (avatar ? 128 : 160),
@@ -91,8 +63,6 @@
 
         return null;
     }
-
-    let fluxstore = undefined;
 
     function contextMenuOpen(payload) {
         if (payload.contextMenu.target.nodeName != "A" && payload.contextMenu.target.nodeName != "VIDEO" && payload.contextMenu.target.nodeName != "IMG" && payload.contextMenu.target.nodeName != "DIV")
@@ -189,10 +159,23 @@
         console.log("[Favorites] Trying to insert into context menu");
     };
 
+    var fluxstore = undefined;
 
-    exfil("_dispatcher", (flux) => {
-        fluxstore = flux;
-        flux._dispatcher.subscribe("CONTEXT_MENU_OPEN", contextMenuOpen);
-    });
+    function checkFluxstore() {
+        console.log("[Favorites] Searching for fluxstore");
+        fluxstore = api.findByCode("\"displayName\",\"ApplicationStoreDirectoryStore\"").Z;
+
+        if (fluxstore == undefined) {
+            console.log("[Favorites] Failed to find fluxstore, searching again in 200ms");
+            setTimeout(checkFluxstore, 200);
+            return;
+        } else {
+            console.log("[Favorites] Got fluxstore");
+            guh.flux = fluxstore;
+            fluxstore._dispatcher.subscribe("CONTEXT_MENU_OPEN", contextMenuOpen);
+        }
+    }
+
+    checkFluxstore();
 
 })();
